@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: envios-service
+              uri: http://localhost:8082
+              predicates:
+                - Path=/api/envios/**
+            - id: compras-service
+              uri: http://localhost:8083
+              predicates:
+                - Path=/api/compras/**
+            - id: transportistas-service
+              uri: http://localhost:8084
+              predicates:
+                - Path=/api/transportistas/**
+            - id: productos-service
+              uri: http://localhost:8085
+              predicates:
+                  - Path=/api/productos/**
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
